@@ -128,4 +128,15 @@ public class WordCount {
         System.out.println(total.get("ababb"));
         System.out.println(total.size());
     }
+
+    @Test
+    public void stringTokenizerTest() {
+        var str = "art#oug jore#rje";
+        StringTokenizer stringTokenizer = new StringTokenizer(str, "# ", true);
+        while (stringTokenizer.hasMoreTokens()) {
+            String token = stringTokenizer.nextToken();
+            System.out.println(token);
+        }
+    }
+
 }

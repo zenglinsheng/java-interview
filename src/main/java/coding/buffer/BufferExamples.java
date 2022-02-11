@@ -6,6 +6,8 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.AsynchronousFileChannel;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -26,7 +28,7 @@ public class BufferExamples {
 
         var start = System.currentTimeMillis();
 
-        for(int i = 0; i < 1000000000; i ++) {
+        for(int i = 0; i < 100000000; i ++) {
             for (int j = 0; j < 5; j++) {
                 fout.write(97 + r.nextInt(5));
             }
@@ -34,6 +36,31 @@ public class BufferExamples {
         }
         fout.close();
         System.out.println(System.currentTimeMillis() - start);
+    }
+
+    @Test
+    public void gen_nio() throws IOException {
+        Random r = new Random();
+        var fileName = "word";
+
+        try(FileChannel fileChannel = new FileOutputStream(fileName).getChannel()) {
+            ByteBuffer buffer;
+            var start = System.currentTimeMillis();
+
+            for (int i = 0; i < 250000;i ++) {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int b = 0;b < 400;b ++) {
+                    for (int j = 0; j < 5; j++) {
+                        stringBuilder.append((char)(97 + r.nextInt(5)));
+                    }
+                    stringBuilder.append(" ");
+                }
+                buffer = ByteBuffer.wrap(stringBuilder.toString().getBytes(Charset.forName("UTF-8")));
+                fileChannel.write(buffer);
+            }
+
+            System.out.println(System.currentTimeMillis() - start);
+        }
     }
 
     @Test
@@ -79,7 +106,7 @@ public class BufferExamples {
         var fileName = "word";
 
         var channel = new FileInputStream(fileName).getChannel();
-        var buff = ByteBuffer.allocate(1024*8);
+        var buff = ByteBuffer.allocate(1024*4);
         var start = System.currentTimeMillis();
 
         while(channel.read(buff) != -1) {
@@ -96,13 +123,13 @@ public class BufferExamples {
 
     @Test
     public void test_chinese(){
-        var raw = "长坂桥头杀气生，横枪立马眼圆睁。一声好似轰雷震，独退曹家百万兵。";
-        var charset = StandardCharsets.UTF_8;
-        var bytes = charset.encode(raw).array();
-        var bytes2 = Arrays.copyOfRange(bytes, 0, 11);
+        String raw = "长坂桥头杀气生，横枪立马眼圆睁。一声好似轰雷震，独退曹家百万兵。";
+        Charset charset = StandardCharsets.UTF_8;
+        byte[] bytes = charset.encode(raw).array();
+        byte[] bytes2 = Arrays.copyOfRange(bytes, 0, 11);
 
-        var bbuf = ByteBuffer.allocate(12);
-        var cbuf = CharBuffer.allocate(12);
+        ByteBuffer bbuf = ByteBuffer.allocate(12);
+        CharBuffer cbuf = CharBuffer.allocate(12);
 
         bbuf.put(bytes2);
         bbuf.flip();
@@ -110,18 +137,56 @@ public class BufferExamples {
         charset.newDecoder().decode(bbuf, cbuf, true);
         cbuf.flip();
 
-        var tmp = new char[cbuf.length()];
-        if(cbuf.hasRemaining()){
+        char[] tmp = new char[cbuf.length()];
+        if(cbuf.hasRemaining()) {
             cbuf.get(tmp);
             System.out.println("here:" + new String(tmp));
         }
 
         System.out.format("limit-pos=%d\n", bbuf.limit() - bbuf.position());
 
-        Arrays.copyOfRange(bbuf.array(), bbuf.position(), bbuf.limit());
+        //将bbuf中剩余的字节重新拷贝进bbuf
+        byte[] bytesSurplus = Arrays.copyOfRange(bbuf.array(), bbuf.position(), bbuf.limit());
+        bbuf.clear();
+        bbuf.put(bytesSurplus);
+    }
 
+    @Test
+    public void test_chinese02() {
+        String raw = "长坂桥头杀气生，横枪立马眼圆睁。一声好似轰雷震，独退曹家百万兵。";
+        Charset charset = Charset.forName("UTF-8");
+        byte[] bytes = raw.getBytes();
+        byte[] bytes2 = Arrays.copyOfRange(bytes, 0, 11);
 
+        ByteBuffer bbuf = ByteBuffer.allocate(12);
+        CharBuffer cbuf = CharBuffer.allocate(12);
 
+        for (int i = 11; i <= bytes.length;) {
+            bbuf.put(bytes2);
+            bbuf.flip();
+
+            charset.newDecoder().decode(bbuf, cbuf, true);
+            cbuf.flip();
+
+            char[] tmp = new char[cbuf.length()];
+            if(cbuf.hasRemaining()) {
+                cbuf.get(tmp);
+                cbuf.clear();
+                System.out.println(new String(tmp));
+            }
+
+            int differ = bbuf.limit() - bbuf.position();
+            byte[] bytesSurplus = Arrays.copyOfRange(bbuf.array(), bbuf.position(), bbuf.limit());
+            bbuf.clear();
+            bbuf.put(bytesSurplus);
+            if (i + 11 - differ == 101) {
+                bytes2 = Arrays.copyOfRange(bytes, i, bytes.length);
+                i = bytes.length;
+            } else {
+                bytes2 = Arrays.copyOfRange(bytes, i, i + 11 - differ);
+                i = i + 11 - differ;
+            }
+        }
     }
 
     @Test
