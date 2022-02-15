@@ -1,15 +1,14 @@
 package coding.collection;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public class LRUCache<K, V> implements Iterable<K>{
+public class LRUCache<K, V> implements Iterable<K> {
 
     int MAX = 3;
-    LinkedHashMap<K, V> cache =new LinkedHashMap<>();
+    LinkedHashMap<K, V> cache = new LinkedHashMap<>();
 
     public void cache(K key, V value) {
         if(cache.containsKey(key)) {
@@ -21,7 +20,6 @@ public class LRUCache<K, V> implements Iterable<K>{
         }
         cache.put(key, value);
     }
-
 
     @Override
     public Iterator<K> iterator() {
@@ -56,9 +54,6 @@ public class LRUCache<K, V> implements Iterable<K>{
                         .map(Object::toString)
                 .collect(Collectors.joining("<-"))
         );
-
     }
-
-
 
 }

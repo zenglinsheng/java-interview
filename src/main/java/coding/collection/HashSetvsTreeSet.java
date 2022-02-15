@@ -8,18 +8,16 @@ import java.util.stream.Collectors;
 public class HashSetvsTreeSet  {
 
     @Test
-    public void test_order(){
+    public void test_order() {
         var hashSet = new HashSet<Integer>();
         hashSet.add(3);
         hashSet.add(7);
         hashSet.add(2);
         hashSet.add(81);
 
-
         System.out.println(hashSet.stream().map(x -> x.toString()).collect(Collectors.joining(",")));
 
-
-        var treeSet = new TreeSet<Integer>(){
+        var treeSet = new TreeSet<Integer>() {
             {
                 add(3);
                 add(7);
@@ -28,14 +26,11 @@ public class HashSetvsTreeSet  {
             }
         };
 
-
-
         System.out.println(treeSet.stream().map(x -> x.toString()).collect(Collectors.joining(",")));
     }
 
-
     @Test
-    public void test_benchmark(){
+    public void test_benchmark() {
 
         var random = new Random();
         LinkedList<String> words = new LinkedList<>();
@@ -48,7 +43,6 @@ public class HashSetvsTreeSet  {
 
             words.add(word);
         }
-
 
         var hashSet = new HashSet<String>();
         var treeSet = new TreeSet<String>();
@@ -71,6 +65,5 @@ public class HashSetvsTreeSet  {
         }
         System.out.println("treeSet time:" + (System.currentTimeMillis() - start));
     }
-
 
 }
