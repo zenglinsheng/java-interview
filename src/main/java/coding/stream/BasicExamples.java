@@ -14,7 +14,6 @@ import java.util.stream.Stream;
 
 public class BasicExamples {
 
-
     @Test
     public void test_mapfilter() {
         Stream.of(1,2,3,4,5,6)
@@ -30,11 +29,11 @@ public class BasicExamples {
 
     @Test
     public void test_mapfilterreduce(){
-        //var result = Stream.of(1,2,3,4,5,)
+        //var result = Stream.of(1,2,3,4,5)
         var result = IntStream.of()
                     .map(x -> x * x)
                     .filter(x -> x < 20)
-                    .reduce( Math::max);
+                    .reduce(Math::max);
 //                    .orElse(0);
                     //.reduce(0, Integer::min);
         System.out.println(result.isPresent());
@@ -83,7 +82,9 @@ public class BasicExamples {
         System.out.println("time:" + (System.currentTimeMillis() - t1) + ",max:" + max);
     }
 
-
-
+    @Test
+    public void test_intStream() {
+        IntStream.range(0, 1000).boxed().collect(Collectors.toList()).forEach(System.out::println);
+    }
 
 }

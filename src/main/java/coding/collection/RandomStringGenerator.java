@@ -19,7 +19,7 @@ public class RandomStringGenerator<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
 
-        return new Iterator<T>() {
+        return new Iterator<>() {
             @Override
             public boolean hasNext() {
                 return true;
@@ -35,11 +35,11 @@ public class RandomStringGenerator<T> implements Iterable<T> {
 
     public static void main(String[] argv) {
         var list = Arrays.asList("List", "Tree", "Array");
-        var gen = new RandomStringGenerator<String>(list);
+        var gen = new RandomStringGenerator<>(list);
 
-//        for(var s: gen) {
-//            System.out.println(s);
-//        }
+        for(var s: gen) {
+            System.out.println(s);
+        }
 
 //        var it = gen.iterator();
 //        for(int i = 0; i < 100; i++) {

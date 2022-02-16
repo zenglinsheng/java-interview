@@ -1,10 +1,9 @@
 package coding.stream;
 
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.util.Optional;
 import java.util.stream.Stream;
 
-public class Event<T>{
+public class Event<T> {
 
     T data;
     public Event(T data){
@@ -62,10 +61,18 @@ public class Event<T>{
                 new Event<>(10)
         );
 
-        s.map(event -> event.map(Transforms::transform))
-                .forEach(e ->
-                    System.out.println(e.data)
-                );
+//        s.map(event -> event.map(Transforms::transform))
+//                .forEach(e ->
+//                    System.out.println(e.data)
+//                );
+
+        Stream<? extends Event<?>> eventStream = s.map(event -> event.map(Transforms::transform));
+        eventStream.forEach(e -> System.out.println(e.data));
+
+        Optional<Event<Integer>> o = Optional.of(new Event<>(1));
+
+        Optional<? extends Event<?>> event1 = o.map(event -> event.map(Transforms::transform));
+        System.out.println(event1.get().data);
 
     }
 }

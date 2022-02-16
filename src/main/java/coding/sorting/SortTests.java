@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class SortTests {
 
     @Test
-    public void test_insertionSort(){
+    public void test_insertionSort() {
         sortTest(InsertionSort.class, 100000);
     }
 
@@ -22,7 +22,7 @@ public class SortTests {
     }
 
     @Test
-    public void test_bubbleSort(){
+    public void test_bubbleSort() {
         sortTest(BubbleSort.class, 100000);
     }
 
@@ -76,7 +76,6 @@ public class SortTests {
 
     public void sortTest(Class cls, int N){
 
-
         try {
             var constructor = cls.getConstructor();
             var rawInst = constructor.newInstance();
@@ -87,9 +86,8 @@ public class SortTests {
                 A = inst.sort(A);
                 System.out.println("time usage:" + (System.currentTimeMillis() - start));
                 assertSorted(A);
-
             } else if(rawInst instanceof IMutableSorter) {
-                var A = gen(N).stream().mapToInt(x->x).toArray();
+                var A = gen(N).stream().mapToInt(x -> x).toArray();
                 var inst = (IMutableSorter)rawInst;
                 inst.sort(A);
                 System.out.println("time usage:" + (System.currentTimeMillis() - start));
@@ -119,7 +117,6 @@ public class SortTests {
                 Assert.fail("Array not in sorted order");
             }
             o = i;
-
         }
     }
 
