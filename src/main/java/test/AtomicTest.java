@@ -1,15 +1,5 @@
 package test;
 
-
-
-import sun.misc.Unsafe;
-
-import java.lang.reflect.Field;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.AbstractQueuedSynchronizer;
-
 public class AtomicTest {
 
 

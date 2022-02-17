@@ -3,6 +3,7 @@ package test;
 import java.util.LinkedList;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+
 public class ProducerCustomerModel {
     final static int MAX = 10;
     LinkedList<Integer> queue = new LinkedList<>();
@@ -11,14 +12,10 @@ public class ProducerCustomerModel {
     Condition full = lock.newCondition();
     Condition emtpy = lock.newCondition();
 
-
     int readData() throws InterruptedException {
-
         Thread.sleep((long)Math.random()*1000);
         return (int)Math.floor(Math.random());
     }
-
-
 
     // Producer
     public void readDb() throws InterruptedException {
@@ -37,7 +34,6 @@ public class ProducerCustomerModel {
 
     // Comsumer
     public void calculate() throws InterruptedException {
-
         lock.lock();
         if (queue.size() == 0) {
             emtpy.await();
@@ -52,7 +48,6 @@ public class ProducerCustomerModel {
         data *= 100;
         lock.unlock();
     }
-
 
     public static void main(String[] argv) {
         var p = new ProducerCustomerModel();
