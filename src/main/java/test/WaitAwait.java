@@ -20,7 +20,7 @@ public class WaitAwait {
                 waitCond.await();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 lock.unlock();
             }
             System.out.println("after-wait...1");
@@ -36,7 +36,7 @@ public class WaitAwait {
                 waitCond.await();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 lock.unlock();
             }
             System.out.println("after-wait...2");
@@ -51,6 +51,5 @@ public class WaitAwait {
         lock.lock();
         waitCond.signalAll();
         lock.unlock();
-
     }
 }
