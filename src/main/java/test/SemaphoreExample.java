@@ -23,7 +23,7 @@ public class SemaphoreExample {
             if(available == 0) {
                 return -1;
             }
-            if(compareAndSetState(available, left)){
+            if(compareAndSetState(available, left)) {
                 return left;
             }
             return -1;

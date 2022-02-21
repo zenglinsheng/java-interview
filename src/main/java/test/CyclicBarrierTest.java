@@ -29,6 +29,7 @@ public class CyclicBarrierTest {
             } catch (BrokenBarrierException e) {
                 e.printStackTrace();
             }
+
         }
     }
 
