@@ -7,12 +7,12 @@ public class BlockingQueueTest {
 
     public static void main(String[] argv) {
         BlockingQueue<Integer> queue;
-        //queue = new ArrayBlockingQueue<Integer>(10);
+        queue = new ArrayBlockingQueue<Integer>(10);
         //queue = new LinkedBlockingQueue<Integer>();
         //queue = new LinkedBlockingDeque<>();
         //queue = new PriorityBlockingQueue<>();
         //queue = new LinkedTransferQueue<Integer>();
-        queue = new SynchronousQueue<>();
+//        queue = new SynchronousQueue<>();
         //queue = new DelayQueue<>();
 
         // Producer
