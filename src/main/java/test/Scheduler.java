@@ -1,8 +1,6 @@
 package test;
 
-import java.util.concurrent.LinkedTransferQueue;
 import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.TransferQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Scheduler {
@@ -28,7 +26,7 @@ public class Scheduler {
         @Override
         public void run() {
             while(true) {
-                Runnable runnable = null;
+                Runnable runnable;
                 try {
                     runnable = tasks.take();
                     runnable.run();
@@ -41,7 +39,7 @@ public class Scheduler {
         }
     }
 
-    public void submit(Runnable r) throws InterruptedException {
+    public void submit(Runnable r) {
         //tasks.offer(r)
         // DualQueue
         // LinkedBlockingQueue
@@ -49,7 +47,7 @@ public class Scheduler {
 //            Thread.onSpinWait();
 //            new Thread(new Worker()).start();
 //        }
-        if(!tasks.offer(r)){
+        if(!tasks.offer(r)) {
             Thread.onSpinWait();
             new Thread(new Worker()).start();
         }

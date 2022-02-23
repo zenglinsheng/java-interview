@@ -10,7 +10,7 @@ public class DelayQueueTest {
     static class DelayedItem<T> implements Delayed {
 
         T value;
-        long time = 0;
+        long time;
 
         public DelayedItem(T v, long delay){
             this.value = v;
@@ -40,10 +40,9 @@ public class DelayQueueTest {
 
     public static void main(String[] argv) {
 
-
         new Thread(() -> {
-            for(int i = 0; i < 1000; i++){
-                queue.offer(new DelayedItem<Integer>(i, i*1000));
+            for(int i = 0; i < 1000; i ++) {
+                queue.offer(new DelayedItem<>(i, i * 1000));
             }
         }).start();
 
@@ -58,4 +57,5 @@ public class DelayQueueTest {
             }
         }).start();
     }
+
 }

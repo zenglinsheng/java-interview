@@ -1,17 +1,12 @@
 package concurrent;
 
-import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicStampedReference;
 
 public class LockFreeStack<T> {
 
     static class Node<T> {
-
         Node<T> next;
         T value;
 
@@ -21,27 +16,26 @@ public class LockFreeStack<T> {
         }
     }
 
-
     AtomicStampedReference<Node<T>> head;
     public LockFreeStack(){
         var headNode = new Node<T>(null);
         head = new AtomicStampedReference<>(headNode, 0);
     }
 
-    public void push(T v){
-        var newNode = new Node<T>(v);
+    public void push(T v) {
+        var newNode = new Node<>(v);
         while(true) {
             int stamp = head.getStamp();
             Node<T> ref = head.getReference();
             newNode.next = ref;
-            if(head.compareAndSet(ref, newNode, stamp, stamp+1)) {
+            if(head.compareAndSet(ref, newNode, stamp, stamp + 1)) {
                 return;
             }
         }
 
     }
 
-    public T pop(){
+    public T pop() {
         while (true) {
             int stamp = head.getStamp();
             Node<T> ref = head.getReference();
@@ -49,13 +43,10 @@ public class LockFreeStack<T> {
                 return null;
             }
             var next = ref.next;
-            head.compareAndSet(ref, next, stamp, stamp+1);
+            head.compareAndSet(ref, next, stamp, stamp + 1);
             return ref.value;
         }
     }
-
-
-
 
     @Test
     public void testSingle(){
@@ -66,10 +57,10 @@ public class LockFreeStack<T> {
             stack.push(i);
         }
 
-        Integer j = null;
+        Integer j;
         Integer i = 99;
         while((j = stack.pop()) != null) {
-            assertEquals(j+"", i-- +"");
+            assertEquals(j + "", i -- + "");
         }
     }
 
@@ -77,10 +68,10 @@ public class LockFreeStack<T> {
     public void testMultiThreads() throws InterruptedException {
         var stack = new LockFreeStack<Integer>();
 
-        for(int i = 0; i < 16; i++) {
+        for(int i = 0; i < 16; i ++) {
             var t = new Thread(() -> {
 
-                for(int j = 0; j < 100; j++ ){
+                for(int j = 0; j < 100; j ++ ) {
                     stack.push(j);
                 }
 
@@ -95,10 +86,7 @@ public class LockFreeStack<T> {
             c ++;
         }
 
-
-        assertEquals(c+"", "1600");
-
-
+        assertEquals(c + "", "1600");
     }
 
 }
