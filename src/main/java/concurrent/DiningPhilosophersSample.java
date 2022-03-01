@@ -1,28 +1,32 @@
 package concurrent;
 
 
-import java.util.Arrays;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class DiningPhilosophersSample implements Runnable {
 
     ReentrantLock lock = new ReentrantLock();
-    int forks[] = new int[5];
-    Condition[] waitForks = new Condition[5];
-    Condition wait = lock.newCondition();
-    Phi[] phis = new Phi[5];
-    boolean[] dirty = new boolean[5];
-    public DiningPhilosophersSample(){
-        for(int i = 0; i < 5; i++) {
-            phis[i] = new Phi(i+1);
+
+    int count = 5;
+
+    int forks[] = new int[count];
+
+    Condition[] waitForks = new Condition[count];
+
+    Phi[] phis = new Phi[count];
+
+    boolean[] dirty = new boolean[count];
+
+    public DiningPhilosophersSample() {
+        for(int i = 0; i < count; i ++) {
+            phis[i] = new Phi(i + 1);
             dirty[i] = true;
             waitForks[i] = lock.newCondition();
         }
     }
 
     class Phi extends Philosopher {
-
         public Phi(int id) {
             super(id);
         }
@@ -76,7 +80,7 @@ public class DiningPhilosophersSample implements Runnable {
     @Override
     public void run() {
         //var pool = Executors.newFixedThreadPool(5);
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < count; i++) {
             new Thread(phis[i]).start();
         }
     }
@@ -84,6 +88,5 @@ public class DiningPhilosophersSample implements Runnable {
     public static void main(String[] argv) {
         var solver = new DiningPhilosophersSample();
         solver.run();
-
     }
 }

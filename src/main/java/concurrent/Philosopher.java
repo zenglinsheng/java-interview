@@ -2,7 +2,13 @@ package concurrent;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Philosopher implements Runnable{
+public class Philosopher implements Runnable {
+
+    String state;
+    int id;
+    int count = 0;
+    static AtomicInteger total = new AtomicInteger(0);
+    static long startMills = System.currentTimeMillis();
 
     public String getState() {
         return state;
@@ -11,12 +17,6 @@ public class Philosopher implements Runnable{
     public void setState(String state) {
         this.state = state;
     }
-
-    String state;
-    int id;
-    int count = 0;
-    static AtomicInteger total = new AtomicInteger(0);
-    static long startMills = System.currentTimeMillis();
 
     public Philosopher(int id){
         this.id = id;
@@ -34,7 +34,7 @@ public class Philosopher implements Runnable{
     public void eating() throws InterruptedException {
         this.state = "Eating";
         if(Math.random() > 0.9) {
-            Thread.sleep(100000);
+            Thread.sleep(100000); // 模拟异常
         } else {
             Thread.sleep((long)(Math.random()*100));
         }
@@ -83,7 +83,7 @@ public class Philosopher implements Runnable{
         return forks[this.right()] == 0;
     }
 
-    public void finished(){
+    public void finished() {
         count ++;
         int t = total.incrementAndGet();
         double speed = (t * 1000.0) / (System.currentTimeMillis() - startMills);
