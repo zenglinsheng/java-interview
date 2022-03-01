@@ -20,10 +20,29 @@ public class QuickSort1 implements IMutableSorter {
         // 省略计算x所在位置i
         // 以及将所有小于x的元素放到左边，大于x元素放到右边的
         quickSort(A, l, i);
-        quickSort(A, i+1, r);
+        quickSort(A, i + 1, r);
 
     }
+    //      i                    j
+    // [10, 9, 20, 8, 15, 40, 1]
 
+    //         i                 j
+    // [10, 9, 20, 8, 15, 40, 1]
+
+    //         i             j
+    // [10, 9, 1, 8, 15, 40, 20]
+
+    //            i          j
+    // [10, 9, 1, 8, 15, 40, 20]
+
+    //               i       j
+    // [10, 9, 1, 8, 15, 40, 20]
+
+    //               i   j
+    // [10, 9, 1, 8, 15, 40, 20]
+
+    //               ij
+    // [10, 9, 1, 8, 15, 40, 20]
     private int partition(int[] A, int l, int r) {
         int x = A[l];
 
@@ -32,15 +51,17 @@ public class QuickSort1 implements IMutableSorter {
 
         while(i != j) {
             if(A[i] < x) {
-                i++;
+                i ++;
             } else {
                Helper.swap(A, i, --j);
             }
         }
-        Helper.swap(A, i-1, l);
-        return i-1;
-
+        Helper.swap(A, i - 1, l);
+        return i - 1;
     }
 
+    public static void main(String[] args) {
+        int[] A = new int[]{10, 9, 20, 8, 15, 40, 1};
+    }
 
 }
