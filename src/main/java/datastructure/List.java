@@ -120,7 +120,6 @@ public class List<T> {
     }
 
     public boolean hasLoop2(){
-
         if(head == null || head.next == null) {
             return false;
         }
@@ -128,13 +127,13 @@ public class List<T> {
         var slow = head;
         var fast = head.next.next;
         while(fast != null && fast.next != null) {
-            if(fast == slow) {return true;}
+            if(fast == slow) {
+                return true;
+            }
             slow = slow.next;
             fast = fast.next.next;
         }
         return false;
-
-
     }
 
 

@@ -9,19 +9,19 @@ import static org.junit.Assert.assertEquals;
 
 public class Queue<T> {
     LinkedList<T> list = new LinkedList<>();
-    public void enqueue(T e){
+    public void enqueue(T e) {
         list.add(e);
     }
-    public T dequeue(){
+    public T dequeue() {
         return list.remove();
     }
 
-    public int size(){
+    public int size() {
         return list.size();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return list.toString();
     }
 

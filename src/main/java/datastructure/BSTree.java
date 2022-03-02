@@ -42,11 +42,9 @@ public class BSTree<T extends Comparable<T>> {
         }
 
         add(root, node);
-
     }
 
     <T> void preOrder(BSTNode<T> node) {
-
         if(node == null) {
             return;
         }
@@ -54,7 +52,6 @@ public class BSTree<T extends Comparable<T>> {
         System.out.println(node.data);
         preOrder(node.left);
         preOrder(node.right);
-
     }
 
     <T> void postOrder(BSTNode<T> node){
@@ -65,7 +62,6 @@ public class BSTree<T extends Comparable<T>> {
         postOrder(node.left);
         postOrder(node.right);
         System.out.println(node.data);
-
     }
 
     <T> void inOrder(BSTNode<T> node){
@@ -76,13 +72,10 @@ public class BSTree<T extends Comparable<T>> {
         inOrder(node.left);
         System.out.println(node.data);
         inOrder(node.right);
-
     }
 
     // Breadth First Search
     public static <T> void bfs(BSTNode<T> node){
-
-
         var queue = new Queue<BSTNode<T>>();
         queue.enqueue(node);
 
@@ -108,7 +101,6 @@ public class BSTree<T extends Comparable<T>> {
 
         reverse(node.left);
         reverse(node.right);
-
     }
 
     @Test

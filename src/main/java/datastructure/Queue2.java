@@ -25,7 +25,7 @@ public class Queue2<T> {
     }
 
     @Test
-    public void test(){
+    public void test() {
         var queue = new Queue2<>();
         queue.enqueue(1);
         queue.enqueue(2);
