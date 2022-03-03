@@ -1,8 +1,6 @@
 package concurrent;
 
 
-import java.util.Arrays;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 
 public class DiningPhilosophersDeadlock {
@@ -10,12 +8,11 @@ public class DiningPhilosophersDeadlock {
     Phi[] phis = new Phi[5];
     volatile int[] forks = new int[5];
 
-    public DiningPhilosophersDeadlock(){
+    public DiningPhilosophersDeadlock() {
         for(int i = 0; i < 5; i++) {
-            phis[i] = new Phi(i+1);
+            phis[i] = new Phi(i + 1);
             forks[i] = 0;
         }
-
     }
 
     class Phi extends Philosopher {
@@ -68,7 +65,7 @@ public class DiningPhilosophersDeadlock {
 
     public void run(){
         var pool = Executors.newFixedThreadPool(5);
-        for(int i = 0; i< 5; i++) {
+        for(int i = 0; i < 5; i ++) {
             pool.submit(phis[i]);
         }
     }

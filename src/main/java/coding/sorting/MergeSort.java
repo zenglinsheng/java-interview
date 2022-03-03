@@ -15,28 +15,27 @@ public class MergeSort implements IMutableSorter {
             return;
         }
 
-        int mid = (l+r+1)/2;
+        int mid = (l + r + 1) / 2;
         mergeSort(A, l, mid);
         mergeSort(A, mid, r);
 
         merge(A, l, mid, r);
-
     }
 
     private void merge(int[] A, int l, int mid, int r) {
-        int[] B = Arrays.copyOfRange(A, l, mid+1);
-        int[] C = Arrays.copyOfRange(A, mid, r+1);
+        int[] B = Arrays.copyOfRange(A, l, mid + 1);
+        int[] C = Arrays.copyOfRange(A, mid, r + 1);
 
 
-        B[B.length-1] = C[C.length - 1] = Integer.MAX_VALUE;
+        B[B.length - 1] = C[C.length - 1] = Integer.MAX_VALUE;
 
         int i = 0, j = 0;
 
-        for(int k = l; k < r; k++) {
+        for(int k = l; k < r; k ++) {
             if(B[i] < C[j]) {
-                A[k] = B[i++];
+                A[k] = B[i ++];
             } else {
-                A[k] = C[j++];
+                A[k] = C[j ++];
             }
         }
 

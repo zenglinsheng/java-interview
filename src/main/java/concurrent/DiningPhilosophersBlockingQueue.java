@@ -1,19 +1,20 @@
 package concurrent;
 
-import java.util.Arrays;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicStampedReference;
 
 public class DiningPhilosophersBlockingQueue implements Runnable {
 
     Philosopher[] phis;
+
     volatile int forks[];
+
     LinkedBlockingQueue<Philosopher> workingQueue;
+
     LinkedBlockingQueue<Philosopher> managerQueue;
+
     DelayQueue<DelayInterruptingThread> delayQueue = new DelayQueue<>();
 
-    class DelayInterruptingThread implements Delayed{
+    class DelayInterruptingThread implements Delayed {
 
         long time;
         Thread current;
@@ -44,8 +45,6 @@ public class DiningPhilosophersBlockingQueue implements Runnable {
         }
     }
 
-
-
     class Worker implements Runnable {
         @Override
         public void run() {
@@ -75,7 +74,6 @@ public class DiningPhilosophersBlockingQueue implements Runnable {
                             phi.setState("Hungry");
                         }
                         managerQueue.offer(phi);
-
                     }
                 }
 
@@ -87,7 +85,6 @@ public class DiningPhilosophersBlockingQueue implements Runnable {
 
         @Override
         public void run() {
-
             while (true) {
                 try {
                     var delayed = (DelayInterruptingThread)delayQueue.take();
@@ -96,7 +93,6 @@ public class DiningPhilosophersBlockingQueue implements Runnable {
                     e.printStackTrace();
                 }
             }
-
 
         }
     }
@@ -124,33 +120,29 @@ public class DiningPhilosophersBlockingQueue implements Runnable {
         }
     }
 
-
     public DiningPhilosophersBlockingQueue() {
         phis = new Philosopher[5];
         forks = new int[5];
         workingQueue = new LinkedBlockingQueue<>();
         managerQueue = new LinkedBlockingQueue<>();
-        for(int i = 0; i < 5; i++) {
-            phis[i] = new Philosopher(i+1);
+        for(int i = 0; i < 5; i ++) {
+            phis[i] = new Philosopher(i + 1);
             workingQueue.offer(phis[i]);
         }
     }
 
-
-
     public void run(){
         var pool = Executors.newFixedThreadPool(7);
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < 5; i ++) {
             pool.submit(new Worker());
         }
         pool.submit(new ContentionManager());
         pool.submit(new InterruptingWorker());
     }
 
-
     public static void main(String[] argv) {
-
         var solver = new DiningPhilosophersBlockingQueue();
         solver.run();
     }
+
 }

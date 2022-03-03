@@ -32,18 +32,18 @@ public class SortTests {
     }
 
     @Test
-    public void test_quickSort(){
-        sortTest(QuickSort.class, 100000);
+    public void test_quicksort(){
+        sortTest(QuickSort.class, 1000000);
     }
 
     @Test
     public void test_quicksort1(){
-        sortTest(QuickSort1.class, 1000000);
+        sortTest(QuickSort1.class, 10000000);
     }
 
     @Test
-    public void test_quicksort(){
-        sortTest(QuickSort.class, 1000000);
+    public void test_quicksort2(){
+        sortTest(QuickSort2.class, 10000000);
     }
 
     @Test
