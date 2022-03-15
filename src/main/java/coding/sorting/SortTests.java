@@ -28,7 +28,7 @@ public class SortTests {
 
     @Test
     public void test_mergeSort(){
-        sortTest(MergeSort.class, 100000);
+        sortTest(MergeSort.class, 10000000);
     }
 
     @Test

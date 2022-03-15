@@ -3,7 +3,7 @@ package designMode.principle.openclose;
 /**
  * Created by geely
  */
-public class JavaCourse implements ICourse{
+public class JavaCourse implements ICourse {
     private Integer Id;
     private String name;
     private Double price;

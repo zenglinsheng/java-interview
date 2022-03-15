@@ -19,7 +19,7 @@ public class MergeSort implements IMutableSorter {
         mergeSort(A, l, mid);
         mergeSort(A, mid, r);
 
-        merge(A, l, mid, r);
+        merge1(A, l, mid, r);
     }
 
     private void merge(int[] A, int l, int mid, int r) {
@@ -38,6 +38,31 @@ public class MergeSort implements IMutableSorter {
                 A[k] = C[j ++];
             }
         }
+
+    }
+
+    public static void merge1(int[] arr, int left, int mid, int right) {
+        int[] leftArr = Arrays.copyOfRange(arr, left, mid + 1);
+        int[] rightArr = Arrays.copyOfRange(arr, mid, right + 1);
+
+        leftArr[leftArr.length - 1] = rightArr[rightArr.length - 1] = Integer.MAX_VALUE;
+
+        int i = 0, j = 0;
+
+        while (left < right) {
+            if (leftArr[i] < rightArr[j])
+                arr[left] = leftArr[i ++];
+            else
+                arr[left] = rightArr[j ++];
+            left ++;
+        }
+//        for(int k = left; k < right; k ++) {
+//            if(leftArr[i] < rightArr[j]) {
+//                arr[k] = leftArr[i ++];
+//            } else {
+//                arr[k] = rightArr[j ++];
+//            }
+//        }
 
     }
 

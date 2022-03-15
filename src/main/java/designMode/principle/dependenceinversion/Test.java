@@ -25,6 +25,7 @@ public class Test {
 //        Geely geely = new Geely(new JavaCourse());
 //        geely.studyImoocCourse();
 //    }
+
     public static void main(String[] args) {
         Geely geely = new Geely();
         geely.setiCourse(new JavaCourse());
@@ -34,6 +35,5 @@ public class Test {
         geely.studyImoocCourse();
 
     }
-
 
 }
