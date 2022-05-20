@@ -19,9 +19,7 @@ public interface Aspect {
         var aspectInsts = Arrays.stream(aspects).map(name -> Try.ofFailable(() -> {
             var clazz = Class.forName(name);
             return (Aspect)clazz.getConstructor().newInstance();
-        }))
-                .filter(aspect -> aspect.isSuccess())
-                .collect(Collectors.toList());
+        })).filter(aspect -> aspect.isSuccess()).collect(Collectors.toList());
 
         var inst = cls.getConstructor().newInstance();
         return (T) Proxy.newProxyInstance(

@@ -16,7 +16,7 @@ public class ObjectFactory {
         var aspects = new LinkedList<IAspect>();
 
         for(var annotation : annotations) {
-            if(annotation instanceof  Aspect) {
+            if(annotation instanceof Aspect) {
                 var type = ((Aspect) annotation).type();
                 var aspect = (IAspect)(type.getConstructor().newInstance());
                 aspects.push(aspect);

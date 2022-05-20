@@ -6,19 +6,12 @@ public class RandomStringGenerator<T> implements Iterable<T> {
 
     private final List<T> list;
 
-
-    private void swap(int[] a, int i, int i1) {
-    }
-
     public RandomStringGenerator(List<T> list) {
         this.list = list;
-
-
     }
 
     @Override
     public Iterator<T> iterator() {
-
         return new Iterator<>() {
             @Override
             public boolean hasNext() {
@@ -32,7 +25,6 @@ public class RandomStringGenerator<T> implements Iterable<T> {
         };
     }
 
-
     public static void main(String[] argv) {
         var list = Arrays.asList("List", "Tree", "Array");
         var gen = new RandomStringGenerator<>(list);
@@ -45,10 +37,6 @@ public class RandomStringGenerator<T> implements Iterable<T> {
 //        for(int i = 0; i < 100; i++) {
 //            System.out.println(it.next());
 //        }
-
-
-
-
     }
 
 }

@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class HashSetvsTreeSet  {
 
@@ -27,6 +28,11 @@ public class HashSetvsTreeSet  {
         };
 
         System.out.println(treeSet.stream().map(x -> x.toString()).collect(Collectors.joining(",")));
+
+        Integer higher = treeSet.higher(3);
+        System.out.println(String.format("higher = %s", higher));
+        Integer ceiling = treeSet.ceiling(3);
+        System.out.println(String.format("ceiling = %s", ceiling));
     }
 
     @Test
@@ -34,8 +40,7 @@ public class HashSetvsTreeSet  {
 
         var random = new Random();
         LinkedList<String> words = new LinkedList<>();
-        for(int i = 0; i < 1000000; i++) {
-
+        for(int i = 0; i < 1_000_000; i ++) {
             var word = random.ints(97, 123)
                     .limit(12)
                     .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
@@ -64,6 +69,7 @@ public class HashSetvsTreeSet  {
             treeSet.contains(w);
         }
         System.out.println("treeSet time:" + (System.currentTimeMillis() - start));
+
     }
 
 }
