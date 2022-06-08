@@ -22,13 +22,17 @@ public class DiningPhilosophersDeadlock {
         }
 
         @Override
-        protected synchronized boolean takeLeft(int[] forks) {
-            return super.takeLeft(forks);
+        protected boolean takeLeft(int[] forks) {
+            synchronized (Phi.class) {
+                return super.takeLeft(forks);
+            }
         }
 
         @Override
-        protected synchronized boolean takeRight(int[] forks) {
-            return super.takeRight(forks);
+        protected boolean takeRight(int[] forks) {
+            synchronized (Phi.class) {
+                return super.takeRight(forks);
+            }
         }
 
         public void run(){

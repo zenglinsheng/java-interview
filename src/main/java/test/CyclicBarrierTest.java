@@ -2,6 +2,7 @@ package test;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.TimeUnit;
 
 public class CyclicBarrierTest {
     CyclicBarrier barrier;
@@ -9,7 +10,6 @@ public class CyclicBarrierTest {
 
     public CyclicBarrierTest(){
         barrier = new CyclicBarrier(2, () -> {
-
             System.out.println("sync...");
             page ++;
         });
@@ -20,10 +20,8 @@ public class CyclicBarrierTest {
 
             try {
                 System.out.println("fetch product...");
-                int x = barrier.await();
-                if(x == 2) {
-
-                }
+                barrier.await();
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (BrokenBarrierException e) {
@@ -38,6 +36,7 @@ public class CyclicBarrierTest {
             try {
                 System.out.println("fetch delivery order...");
                 barrier.await();
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (BrokenBarrierException e) {

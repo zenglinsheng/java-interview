@@ -1,5 +1,6 @@
 package concurrent;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Philosopher implements Runnable {
@@ -38,6 +39,7 @@ public class Philosopher implements Runnable {
         } else {
             Thread.sleep((long)(Math.random()*100));
         }
+//        Thread.sleep((long)(Math.random()*100));
 //        this.state = "Thinking";
     }
 

@@ -2,7 +2,6 @@ package test;
 
 public class AtomicTest {
 
-
     void init(Integer[][] A, int n, int value) {
         for(int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {

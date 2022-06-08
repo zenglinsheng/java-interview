@@ -24,7 +24,7 @@ public class LambdaExamples {
 
 //    @interface My{}
 //    @ProxyTest
-//    public void test1(){
+//    public void test0602(){
 //        Predicate<String> predicate = (@My var a) -> true;
 //    }
 }
