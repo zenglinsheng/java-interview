@@ -10,7 +10,7 @@ import java.lang.reflect.Proxy;
  * @Date: 2022/6/8 16:42
  * @Description:
  */
-public class JdkProxyFactory  implements InvocationHandler {
+public class JdkProxyFactory implements InvocationHandler {
 
     /**
      * 代理类中的真实对象
